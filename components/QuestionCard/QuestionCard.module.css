@@ -1,0 +1,11 @@
+.answer {
+    color: white;
+}
+
+.rightAnswer {
+    color: greenyellow;
+}
+
+.wrongAnswer {
+    color: 'red';
+}
