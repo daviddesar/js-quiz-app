@@ -1,6 +1,6 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Markdown from "markdown-to-jsx";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Markdown from 'markdown-to-jsx';
 
 type ExplanationProps = {
   correctAnswer: string;

@@ -1,15 +1,13 @@
-import Typography from "@mui/material/Typography";
-import CustomMarkdown from "./CustomMarkdown";
-import Markdown from "markdown-to-jsx";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
-import { PrimaryButton } from "./StyledComponents";
-import Box from "@mui/material/Box";
-import Explanation from "../Explanation";
+import Typography from '@mui/material/Typography';
+import CustomMarkdown from './CustomMarkdown';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import { useEffect, useState } from 'react';
+import { PrimaryButton } from './StyledComponents';
+import Box from '@mui/material/Box';
+import Explanation from '../Explanation';
 
 type QuestionCardProps = {
   title: string;
@@ -21,9 +19,9 @@ type QuestionCardProps = {
 };
 
 const extractExplaination = (initString: string) => {
-  const pattern = "#### Answer: ";
+  const pattern = '#### Answer: ';
   const startIndex = initString.indexOf(pattern);
-  const endIndex = initString.indexOf("</p>");
+  const endIndex = initString.indexOf('</p>');
   return initString.slice(startIndex + pattern.length + 1, endIndex);
 };
 
@@ -35,18 +33,18 @@ const QuestionCard = ({
   explain,
   id,
 }: QuestionCardProps) => {
-  const [userAnswer, setUserAnswer] = useState<string>("");
+  const [userAnswer, setUserAnswer] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isUserAnswerCorrect, setIsUserAnswerCorrect] = useState(false);
   const [isShownExplanation, setIsShownExplanation] = useState(false);
   const explanation = extractExplaination(explain);
 
   useEffect(() => {
-    setUserAnswer("");
+    setUserAnswer('');
     setIsSubmitted(false);
     setIsUserAnswerCorrect(false);
     setIsShownExplanation(false);
-  }, [id])
+  }, [id]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAnswer((event.target as HTMLInputElement).value);
@@ -72,16 +70,16 @@ const QuestionCard = ({
       !isSubmitted ||
       (isSubmitted && key !== userAnswer && !isRightAns(key))
     ) {
-      return "white";
+      return 'white';
     } else if (isRightAns(key) && isSubmitted) {
-      return "greenyellow";
+      return 'greenyellow';
     } else if (key === userAnswer && isSubmitted && !isUserAnswerCorrect) {
-      return "red";
+      return 'red';
     }
   };
   return (
     <>
-      <Typography variant="h5" sx={{ marginBottom: 2, color: "white" }}>
+      <Typography variant="h5" sx={{ marginBottom: 2, color: 'white' }}>
         {title}
       </Typography>
       <CustomMarkdown text={question} />
@@ -97,10 +95,10 @@ const QuestionCard = ({
                   <Radio
                     sx={{
                       color: getTextColor(it[2], isSubmitted),
-                      "&.Mui-checked": {
+                      '&.Mui-checked': {
                         color: getTextColor(it[2], isSubmitted),
                       },
-                      "&.Mui-disabled": {
+                      '&.Mui-disabled': {
                         color: getTextColor(it[2], isSubmitted),
                         opacity: 0.5,
                       },
@@ -109,8 +107,8 @@ const QuestionCard = ({
                 }
                 sx={{
                   color: getTextColor(it[2], isSubmitted),
-                  "& .MuiFormControlLabel-label.Mui-disabled": {
-                    color: "inherit",
+                  '& .MuiFormControlLabel-label.Mui-disabled': {
+                    color: 'inherit',
                     opacity: 0.5,
                   },
                 }}
@@ -120,7 +118,7 @@ const QuestionCard = ({
           </RadioGroup>
         </FormControl>
       ) : (
-        <Box sx={{ color: "white" }}>
+        <Box sx={{ color: 'white' }}>
           <Explanation
             correctAnswer={correctAnswer}
             explanation={explanation}
@@ -147,7 +145,7 @@ const QuestionCard = ({
               variant="contained"
               onClick={isSubmitted ? handleClickExplain : handleSubmitAnswer}
             >
-              {isSubmitted ? "Explain" : "Submit"}
+              {isSubmitted ? 'Explain' : 'Submit'}
             </PrimaryButton>
           )}
         </Box>
