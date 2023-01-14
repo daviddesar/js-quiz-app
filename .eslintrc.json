@@ -1,6 +1,7 @@
 {
   // "extends": "eslint:recommended",
   "plugins": ["@typescript-eslint", "prettier"],
+  "ignorePatterns": ["**.config.js"],
   "extends": [
     "prettier",
     "plugin:@typescript-eslint/recommended",
