@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -14,13 +13,15 @@ import {
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { styled } from '@mui/material/styles';
-import Menu from '../../components/Menu/index';
+// import Menu from '../../components/Menu/index';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 export const Container = styled(Card)({
   borderRadius: '24px',
   backgroundColor: '#1d1c22',
   border: '2px solid #5A5A5A',
-  width: 600,
+  width: 500,
   padding: '32px',
 });
 
@@ -85,35 +86,51 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-    if (router) {
+    if (data && router.isReady) {
       setQuestion();
     }
-  }, []);
-  useEffect(() => {
-    if (router && data) {
-      setQuestion();
-    }
-  }, [Number(query.id)]);
+  }, [Number(query.id), data?.length]);
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
+    <Paper
+      elevation={0}
+      sx={{
+        minHeight: '100vh',
+        borderRadius: 'unset',
         backgroundColor: '#0a0b0e',
       }}
     >
       <Head>
         <title>JS quiz</title>
       </Head>
-      <div>
-        <Menu />
-        <Container>
-          <Box
+      <Grid
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        container
+        sx={{
+          paddingTop: 2,
+          paddingBottom: 2,
+        }}
+      >
+        <Grid
+          item
+          lg={5}
+          md={6}
+          xs={11}
+          sx={{
+            width: '100%',
+            backgroundColor: '#292929',
+            paddingTop: 3,
+            paddingBottom: 3,
+            paddingLeft: 4,
+            paddingRight: 4,
+            borderRadius: 2,
+          }}
+        >
+          <Grid
+            container
+            justifyContent="space-between"
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
               color: 'white',
               marginBottom: 2,
             }}
@@ -132,7 +149,7 @@ export default function Home() {
             >
               <ArrowForwardIosIcon />
             </IconButton>
-          </Box>
+          </Grid>
 
           {data && currentQuestion && (
             <QuestionCard
@@ -144,8 +161,8 @@ export default function Home() {
               id={currentQuestion.id}
             />
           )}
-        </Container>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
