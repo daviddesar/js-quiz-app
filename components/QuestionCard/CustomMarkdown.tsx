@@ -18,14 +18,12 @@ const CustomMarkdown = ({ text, className }: CustomMarkdownProps) =>
 
           return !inline && match ? (
             <SyntaxHighlighter
+              children={String(children).replace(/\n$/, '')}
               style={dracula}
               PreTag="div"
               wrapLongLines
               language="javascript"
-              {...props}
-            >
-              {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
+            />
           ) : (
             <code className={className ? className : ''} {...props}>
               {children}
