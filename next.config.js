@@ -1,17 +1,6 @@
-const isGithubActions = process.env.GITHUB_ACTIONS || false
-
-let assetPrefix = ''
-let basePath = '/'
-
-if (isGithubActions) {
-  // trim off `<owner>/`
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
-
-  assetPrefix = `/${repo}/`
-  basePath = `/${repo}`
-}
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  assetPrefix: assetPrefix,
-  basePath: basePath,
+  // Use the CDN in production and localhost for development.
+  assetPrefix: isProd ? 'https://cdn.statically.io/gh/daviddesar/daviddesar.github.io/js-quiz-app//gh-pages/' : '',
 }
