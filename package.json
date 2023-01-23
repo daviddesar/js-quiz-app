@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write utils pages components",
-    "eslint-fix": "eslint utils ./"
+    "eslint-fix": "eslint utils ./",
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
