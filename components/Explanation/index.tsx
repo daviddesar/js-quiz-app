@@ -13,7 +13,21 @@ const Explanation = ({ correctAnswer, explanation }: ExplanationProps) => (
       Answer: {correctAnswer}
     </Typography>
     <Box sx={{ lineHeight: 1.5, fontSize: 16 }}>
-      <Markdown>{explanation}</Markdown>
+      <Markdown
+        options={{
+          overrides: {
+            pre: {
+              props: {
+                style: {
+                  overflowX: 'auto',
+                },
+              },
+            },
+          },
+        }}
+      >
+        {explanation}
+      </Markdown>
     </Box>
   </Box>
 );
