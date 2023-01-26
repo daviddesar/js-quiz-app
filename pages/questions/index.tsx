@@ -13,9 +13,9 @@ import {
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { styled } from '@mui/material/styles';
-// import Menu from '../../components/Menu/index';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import { Bars } from 'react-loader-spinner';
 
 export const Container = styled(Card)({
   borderRadius: '24px',
@@ -28,9 +28,11 @@ export const Container = styled(Card)({
 export default function Home() {
   const [data, setData] = useState<Question[]>();
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { query, pathname } = router;
   const setQuestion = () => {
+    setIsLoading(true);
     if (!query.id || Number(query.id) < 1) {
       query.id = '1';
       router.push({
@@ -43,6 +45,7 @@ export default function Home() {
         data.find((it) => it.id === Number(query.id) - 1) || null
       );
     }
+    setIsLoading(false);
   };
   const navigateQuestion = (isForward: boolean) => {
     if (isForward) {
@@ -102,67 +105,88 @@ export default function Home() {
       <Head>
         <title>JS quiz</title>
       </Head>
-      <Grid
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        container
-        sx={{
-          paddingTop: 2,
-          paddingBottom: 2,
-        }}
-      >
+      {isLoading ? (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+          }}
+        >
+          <Bars
+            height="80"
+            width="80"
+            color="white"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      ) : (
         <Grid
-          item
-          lg={5}
-          md={6}
-          xs={11}
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          container
           sx={{
-            width: '100%',
-            backgroundColor: '#292929',
-            paddingTop: 3,
-            paddingBottom: 3,
-            paddingLeft: 4,
-            paddingRight: 4,
-            borderRadius: 2,
+            paddingTop: 2,
+            paddingBottom: 2,
           }}
         >
           <Grid
-            container
-            justifyContent="space-between"
+            item
+            lg={5}
+            md={6}
+            xs={11}
             sx={{
-              color: 'white',
-              marginBottom: 2,
+              width: '100%',
+              backgroundColor: '#292929',
+              paddingTop: 3,
+              paddingBottom: 3,
+              paddingLeft: 4,
+              paddingRight: 4,
+              borderRadius: 2,
             }}
           >
-            <IconButton
-              onClick={() => navigateQuestion(false)}
-              sx={{ margin: 0, padding: 0 }}
-              color="inherit"
+            <Grid
+              container
+              justifyContent="space-between"
+              sx={{
+                color: 'white',
+                marginBottom: 2,
+              }}
             >
-              <ArrowBackIosIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => navigateQuestion(true)}
-              sx={{ margin: 0, padding: 0 }}
-              color="inherit"
-            >
-              <ArrowForwardIosIcon />
-            </IconButton>
-          </Grid>
+              <IconButton
+                onClick={() => navigateQuestion(false)}
+                sx={{ margin: 0, padding: 0 }}
+                color="inherit"
+              >
+                <ArrowBackIosIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => navigateQuestion(true)}
+                sx={{ margin: 0, padding: 0 }}
+                color="inherit"
+              >
+                <ArrowForwardIosIcon />
+              </IconButton>
+            </Grid>
 
-          {data && currentQuestion && (
-            <QuestionCard
-              title={currentQuestion.title || ''}
-              question={currentQuestion.questionContent || ''}
-              keyOptions={currentQuestion.options}
-              correctAnswer={currentQuestion.answer || ''}
-              explain={currentQuestion.explain || ''}
-              id={currentQuestion.id}
-            />
-          )}
+            {data && currentQuestion && (
+              <QuestionCard
+                title={currentQuestion.title || ''}
+                question={currentQuestion.questionContent || ''}
+                keyOptions={currentQuestion.options}
+                correctAnswer={currentQuestion.answer || ''}
+                explain={currentQuestion.explain || ''}
+                id={currentQuestion.id}
+              />
+            )}
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Paper>
   );
 }
