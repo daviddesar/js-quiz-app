@@ -2,6 +2,7 @@
   "name": "js-quiz-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://daviddesar.github.io/js-quiz-app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
