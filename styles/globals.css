@@ -6,9 +6,9 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   box-sizing: border-box;
   min-height: 100vh;
+  background-color: #0a0b0e;
 }
 
 body > :first-child > :first-child {
   min-height: 100vh;
-
 }
